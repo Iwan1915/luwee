@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemesanan Makanan Online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: relative; /* Menambahkan posisi relatif untuk menempatkan logo */
+        }
+        header img {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 80px; /* Ukuran logo kecil */
+            height: 80px;
+        }
+
+        nav {
+            background-color: #444;
+            overflow: hidden;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            float: left;
+            display: block;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .container {
+            padding: 20px;
+        }
+        .search-container {
+            margin-bottom: 20px;
+        }
+        .search-input {
+            width: 60%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px; /* Menambahkan jarak bawah untuk search input */
+        }
+        .search-btn {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-left: 5px; /* Menambahkan sedikit jarak antara search input dan button */
+        }
+        .search-btn:hover {
+            background-color: #218838;
+        }
+        .menu-container {
+            display: flex;
+            flex-wrap: wrap; /* Membuat elemen pindah ke baris berikutnya jika melampaui batas */
+            row-gap: 20px; /* Mengurangi jarak antar elemen */
+            column-gap: 15px;
+        }
+
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: white;
+            width: 300px;
+            padding: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 250px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .menu-item .details {
+            margin-bottom: 10px;
+            flex-grow: 1;
+        }
+
+        .menu-item .price-container, .menu-item .order-btn {
+            display: inline-block; /* Menjaga elemen tetap berada dalam satu baris */
+            margin-top: 10px;
+        }
+
+        .menu-item .price-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;          
+        }
+
+        .menu-item .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .menu-item .order-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .menu-item .order-btn:hover {
+            background-color: #218838;
+        }
+
+        .message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #e7f7e7;
+            color: #4CAF50;
+            padding: 20px;
+            border: 1px solid #4CAF50;
+            display: none;
+            font-size: 18px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="image/logo_luwe.png" alt="Logo">
+    <h1>Pemesanan Makanan Online</h1>
+</header>
+
+<nav>
+    <a href="index.html">Beranda</a>
+    <a href="menu.html">Menu</a>
+    <a href="promo.html">Promo</a>
+    <a href="kontak.html">Kontak</a>
+</nav>
+
+<div class="container">
+    <div class="search-container">
+        <input 
+            type="text" 
+            id="search-bar" 
+            class="search-input" 
+            placeholder="Cari menu..." 
+            onkeydown="handleEnter(event)">
+        <button class="search-btn" onclick="searchMenu()">Cari</button>
+    </div>
+
+    <h2>Menu Makanan</h2>
+    <div class="menu-container">
+        <div class="menu-item">
+            <img src="image/nasigoreng.jpg" alt="Nasi Goreng">
+            <div class="details">
+                <h3>Nasi Goreng</h3> 
+                <p>Nasi goreng adalah hidangan khas Indonesia berupa nasi yang digoreng dengan bumbu seperti bawang putih, bawang merah, kecap manis, cabai, dan sering kali dilengkapi dengan telur, ayam, udang, atau sosis. Hidangan ini sangat populer sebagai makanan sehari-hari.</p>          
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 13.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Nasi Goreng')">Pesan Sekarang</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="image/nasipadang.jpg" alt="Nasi Padang">
+            <div class="details">
+                <h3>Nasi Padang</h3>
+                <p>Nasi Padang merupakan hidangan khas Minangkabau (Sumatera Barat), di mana nasi disajikan dengan berbagai macam lauk seperti rendang, ayam gulai, telur balado, sambal ijo, dan sayur daun singkong. Biasanya, lauknya dipilih sesuai selera.</p>
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 15.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Nasi Padang')">Pesan Sekarang</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="image/gacoan.jpg" alt="Mie Gacoan">
+            <div class="details">
+                <h3>Mie Gacoan</h3>
+                <p>Mie Gacoan adalah hidangan mie modern yang terkenal di Indonesia, sering kali disajikan dengan tingkat kepedasan yang dapat dipilih sesuai selera. Toppingnya bisa berupa ayam suwir, pangsit goreng, dan sayuran. Brand Mie Gacoan juga menjadi terkenal karena suasana tempat makan yang santai.</p>
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 20.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Mie Gacoan')">Pesan Sekarang</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="image/ayambakar.jpg" alt="Ayam Bakar">
+            <div class="details">
+                <h3>Ayam Bakar</h3>
+                <p>Ayam bakar adalah ayam yang dimasak dengan bumbu khas (biasanya berbahan dasar kecap manis, bawang, jahe, dan rempah lain), kemudian dipanggang di atas arang atau grill hingga matang. Rasanya manis, gurih, dan sedikit smoky.</p>
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 15.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Ayam Bakar')">Pesan Sekarang</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="image/ayamgeprek.jpeg" alt="Ayam Geprek">
+            <div class="details">
+                <h3>Ayam Geprek</h3>
+                <p>Ayam geprek adalah ayam goreng tepung yang dihancurkan atau “digeprak” bersama sambal pedas. Hidangan ini populer karena rasa pedasnya yang menggugah selera, dan tingkat pedas bisa disesuaikan.</p>
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 15.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Ayam Geprek')">Pesan Sekarang</button>
+        </div>
+        
+        <div class="menu-item">
+            <img src="image/bakso.jpg" alt="Bakso">
+            <div class="details">
+                <h3>Bakso Mafia</h3>
+                <p>Bakso adalah bola daging yang terbuat dari daging sapi giling (kadang dicampur dengan tepung), disajikan dalam kuah kaldu hangat bersama mie, tahu, pangsit, dan pelengkap seperti daun bawang atau bawang goreng.</p>
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 15.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Bakso Mafia')">Pesan Sekarang</button>
+        </div>
+        
+        <div class="menu-item">
+            <img src="image/ikanbakar.jpg" alt="Ikan Bakar">
+            <div class="details">
+                <h3>Ikan Bakar</h3>
+                <p>Ikan bakar adalah hidangan ikan yang dibumbui (biasanya dengan bumbu rempah, kecap manis, atau sambal), kemudian dipanggang di atas arang hingga matang. Hidangan ini sering disajikan dengan sambal dan lalapan.</p>
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 15.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Ikan Bakar')">Pesan Sekarang</button>
+        </div>
+        
+        <div class="menu-item">
+            <img src="image/sate_ayam.jpg" alt="Sate Ayam">
+            <div class="details">
+                <h3>Sate Ayam</h3>
+                <p>Sate ayam adalah potongan kecil daging ayam yang ditusuk menggunakan tusuk sate, dibakar, dan disajikan dengan bumbu kacang atau kecap manis. Hidangan ini sering disajikan dengan lontong atau nasi.</p>
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 15.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Sate Ayam')">Pesan Sekarang</button>
+        </div> 
+    </div>
+</div>
+
+<div id="order-message" class="message">
+    Pesanan Anda sudah diproses. Terima kasih!
+</div>
+
+<script>
+    function processOrder(menuItem) {
+        var message = document.getElementById('order-message');
+        message.style.display = 'block';
+        message.innerHTML = 'Pesanan ' + menuItem + ' sudah diproses. Terima kasih!';
+        setTimeout(function() {
+            message.style.display = 'none';
+        }, 2000);
+    }
+
+    function searchMenu() {
+        var input = document.getElementById('search-bar').value.toLowerCase();
+        var menuItems = document.getElementsByClassName('menu-item');
+
+        Array.from(menuItems).forEach(function(item) {
+            var title = item.querySelector('h3').innerText.toLowerCase();
+            if (title.includes(input)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    function handleEnter(event) {
+        if (event.key === 'Enter') {
+            searchMenu();
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemesanan Makanan Online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: relative; /* Menambahkan posisi relatif untuk menempatkan logo */
+        }
+        header img {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 80px; /* Ukuran logo kecil */
+            height: auto;
+        }
+        nav {
+            background-color: #444;
+            overflow: hidden;
+        }
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            float: left;
+            display: block;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .container {
+            padding: 20px;
+        }
+        .search-container {
+            margin-bottom: 20px;
+        }
+        .search-input {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .search-btn {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .search-btn:hover {
+            background-color: #218838;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            background-color: white;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .menu-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+        .menu-item .details {
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+        .menu-item .price-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #d4edda;
+            border-radius: 5px;
+            padding: 3px 8px;
+        }
+        .menu-item .price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .order-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .order-btn:hover {
+            background-color: #218838;
+        }
+        .message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #e7f7e7;
+            color: #4CAF50;
+            padding: 20px;
+            border: 1px solid #4CAF50;
+            display: none;
+            font-size: 18px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="image/logo_luwe.png" alt="Logo">
+    <h1>Pemesanan Makanan Online</h1>
+</header>
+
+<nav>
+    <a href="index.html">Beranda</a>
+    <a href="menu.html">Menu</a>
+    <a href="promo.html">Promo</a>
+    <a href="kontak.html">Kontak</a>
+</nav>
+
+<div class="container">
+    <!-- Kolom pencarian -->
+    <div class="search-container">
+        <input 
+            type="text" 
+            id="search-bar" 
+            class="search-input" 
+            placeholder="Cari menu..." 
+            onkeydown="handleEnter(event)">
+        <button class="search-btn" onclick="searchMenu()">Cari</button>
+    </div>
+
+    <h2>Menu Makanan</h2>
+    <div class="menu-container">
+        <div class="menu-item">
+            <img src="image/nasigoreng.jpg" alt="Nasi Goreng">
+            <div class="details">
+                <h3>Nasi Goreng</h3>
+                <p>Nasi goreng adalah makanan berupa nasi yang digoreng.</p>
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 13.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Nasi Goreng')">Pesan Sekarang</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="image/nasipadang.jpg" alt="Nasi Padang">
+            <div class="details">
+                <h3>Nasi Padang</h3>
+                <p>Nasi padang adalah sebuah hidangan yang disajikan secara lengkap secara prasmanan.</p>
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 15.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Nasi Padang')">Pesan Sekarang</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="image/gacoan.jpg" alt="Mie Gacoan">
+            <div class="details">
+                <h3>Mie Gacoan</h3>
+                <p>Mie Gacoan yang menyediakan berbagai menu olahan mi yang affordable dan murah.</p>
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 20.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Mie Gacoan')">Pesan Sekarang</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="image/ayambakar.jpg" alt="Ayam Bakar">
+            <div class="details">
+                <h3>Ayam Bakar</h3>
+                <p>Ayam bakar adalah masakan khas Indonesia yang terbuat dari ayam yang dibakar.</p>
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 15.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Ayam Bakar')">Pesan Sekarang</button>
+        </div>
+
+        <div class="menu-item">
+            <img src="image/ayamgeprek.jpeg" alt="Ayam Geprek">
+            <div class="details">
+                <h3>Ayam Geprek</h3>
+                <p>Ayam geprek adalah hidangan ayam goreng tepung yang diulek atau dihancurkan bersama sambal khas Indonesia.</p>
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 15.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Ayam Geprek')">Pesan Sekarang</button>
+        </div>
+        
+        <div class="menu-item">
+            <img src="image/bakso.jpg" alt="Bakso">
+            <div class="details">
+                <h3>Bakso Mafia</h3>
+                <p>Bakso adalah makanan khas Indonesia berupa bola daging yang biasanya dibuat dari campuran daging sapi giling dan tepung tapioka.</p>
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 15.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Bakso Mafia')">Pesan Sekarang</button>
+        </div>
+        
+        <div class="menu-item">
+            <img src="image/ikanbakar.jpg" alt="Ikan Bakar">
+            <div class="details">
+                <h3>Ikan Bakar</h3>
+                <p>Ikan bakar adalah hidangan ikan yang dibumbui (biasanya dengan campuran rempah seperti kunyit, bawang, cabai, dan kecap) lalu dipanggang atau dibakar. </p>
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 15.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Ikan Bakar')">Pesan Sekarang</button>
+        </div>
+        
+        <div class="menu-item">
+            <img src="image/sate_ayam.jpg" alt="Sate Ayam">
+            <div class="details">
+                <h3>Sate Ayam</h3>
+                <p>Sate ayam adalah potongan daging ayam yang ditusuk dengan bambu, dibumbui, dan dibakar di atas bara api.</p>
+            </div>
+            <div class="price-container">
+                <span class="price">Rp 15.000</span>
+            </div>
+            <button class="order-btn" onclick="processOrder('Sate Ayam')">Pesan Sekarang</button>
+        </div> 
+</div>
+
+<!-- Pesan Pesanan di tengah halaman -->
+<div id="order-message" class="message">
+    Pesanan Anda sudah diproses. Terima kasih!
+</div>
+
+<script>
+    function processOrder(menuItem) {
+        var message = document.getElementById('order-message');
+        message.style.display = 'block';
+        message.innerHTML = 'Pesanan ' + menuItem + ' sudah diproses. Terima kasih!';
+        
+        // Pesan akan hilang setelah 3 detik
+        setTimeout(function() {
+            message.style.display = 'none';
+        }, 2000);
+    }
+
+    function searchMenu() {
+        var input = document.getElementById('search-bar').value.toLowerCase();
+        var menuItems = document.getElementsByClassName('menu-item');
+
+        Array.from(menuItems).forEach(function(item) {
+            var title = item.querySelector('h3').innerText.toLowerCase();
+            if (title.includes(input)) {
+                item.style.display = 'flex';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    function handleEnter(event) {
+        if (event.key === 'Enter') {
+            searchMenu();
+        }
+    }
+</script>
+
+</body>
+</html>
